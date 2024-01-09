@@ -1,2 +1,4 @@
-Flask==2.2.2
+Flask
+pandas
 selenium==4.16.0
+pytest
