@@ -14,7 +14,7 @@ class TestAppE2E(unittest.TestCase):
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--no-sandbox')
-        host_ip = "host.docker.internal"
+        host_ip = "127.0.0.1"
         self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.get(f'http://{host_ip}:5000')
 
