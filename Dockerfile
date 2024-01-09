@@ -5,8 +5,8 @@ FROM python:3.10
 WORKDIR /app
 
 # Install dependencies
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install selenium
+RUN pip install selenium webdriver_manager
 
 # Install required dependencies for Google Chrome
 RUN apt-get install -y wget gnupg
