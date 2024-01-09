@@ -19,6 +19,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
@@ -28,9 +29,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Test with pytest
-      run: |
-        pytest
+
     - name: Build Docker image
       run: docker build -t ci_cd .
 
@@ -39,6 +38,11 @@ jobs:
 
     - name: Run integration tests
       run: docker run ci_cd pytest test-endtoend-app
+
+    - name: Test with pytest
+      run: |
+        pytest
+    
 
   push_to_registry:
     name: Push Docker image to Docker Hub
