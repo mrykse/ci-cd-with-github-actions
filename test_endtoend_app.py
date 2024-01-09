@@ -3,22 +3,21 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
-
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
-
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
-
-driver = webdriver.Chrome(options=chrome_options)
 
 
 class TestAppE2E(unittest.TestCase):
     # The setUp is a little different for me, since the command indicated in the subject didn't work for me
     # But we this setUp it works perfectly
-    def setUp(self):
-        self.driver = webdriver.Chrome()
-        self.driver.get('http://localhost:5000')
+    def setup(request):
+        options = Options()
+        options.add_argument('--headless')
+        request.cls.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        yield request.cls.driver
+        request.cls.driver.close()
 
     # I've also make the update_item test case on it, so I renamed the test case
     def test_add_and_delete_and_update_item(self):
