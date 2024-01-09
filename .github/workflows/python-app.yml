@@ -46,10 +46,7 @@ jobs:
       run: sudo apt-get install xvfb
 
     - name: Running the Python script
-      run: python Selenium-Template.py
-
-    - name: Run integration tests
-      run: docker run ci_cd pytest test_endtoend_app.py
+      run: python test_endtoend_app.py
 
     - name: Test with pytest
       run: |
