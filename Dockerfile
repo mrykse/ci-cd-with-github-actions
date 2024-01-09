@@ -19,6 +19,8 @@ RUN apt-get install -y google-chrome-stable
 # Install ChromeDriver using webdriver_manager
 RUN python -c "from webdriver_manager.chrome import ChromeDriverManager; ChromeDriverManager().install()"
 
+COPY test_endtoend_app.py .
+COPY test_app.py .
 
 # Run the test script
 CMD ["python", "app.py"]
