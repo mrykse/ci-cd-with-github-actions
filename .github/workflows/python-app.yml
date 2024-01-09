@@ -36,6 +36,18 @@ jobs:
     - name: Run unit tests
       run: docker run ci_cd pytest test_app.py
 
+    - name: Removing previous chrome instances on runner
+      run: sudo apt purge google-chrome-stable
+
+       # Need to fetch reqs if needed
+    - name: Installing all necessary packages
+      run: pip install chromedriver-autoinstaller selenium pyvirtualdisplay
+    - name: Install xvfb
+      run: sudo apt-get install xvfb
+
+    - name: Running the Python script
+      run: python Selenium-Template.py
+
     - name: Run integration tests
       run: docker run ci_cd pytest test_endtoend_app.py
 

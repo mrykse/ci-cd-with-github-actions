@@ -4,16 +4,24 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service
+from pyvirtualdisplay import Display
 
 
 class TestAppE2E(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        options = Options()
-        options.add_argument('--headless')
-        cls.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-        cls.driver.set_window_size(1406, 860)
+        # Start virtual display
+        cls.display = Display(visible=0, size=(800, 800))
+        cls.display.start()
+
+        # Configure Chrome options
+        chrome_options = Options()
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--window-size=1406,860')
+        chrome_options.add_argument('--ignore-certificate-errors')
+
+        # Initialize WebDriver
+        cls.driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 
     def test_add_and_delete_and_update_item(self):
         self.driver.find_element(By.NAME, "item").click()
@@ -42,6 +50,8 @@ class TestAppE2E(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        # Stop virtual display and close WebDriver
+        cls.display.stop()
         cls.driver.quit()
 
 
