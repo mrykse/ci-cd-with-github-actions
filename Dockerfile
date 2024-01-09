@@ -5,6 +5,7 @@ ADD . /app
 # Set the working directory
 WORKDIR /app
 # Install dependencies
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 # Expose port 5000
 EXPOSE 5000
