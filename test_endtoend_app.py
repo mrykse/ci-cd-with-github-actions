@@ -14,8 +14,9 @@ class TestAppE2E(unittest.TestCase):
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--no-sandbox')
+        host_ip = "host.docker.internal"
         self.driver = webdriver.Chrome(options=chrome_options)
-        self.driver.get('http://localhost:5000')
+        self.driver.get(f'http://{host_ip}:5000')
 
     # I've also make the update_item test case on it, so I renamed the test case
     def test_add_and_delete_and_update_item(self):
