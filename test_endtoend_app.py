@@ -10,7 +10,6 @@ class TestAppE2E(unittest.TestCase):
     # But we this setUp it works perfectly
     def setUp(self):
         chrome_options = webdriver.ChromeOptions()
-        System.setProperty("webdriver.chrome.driver", "path of the exe file\\chromedriver.exe")
 
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-gpu')
