@@ -31,7 +31,7 @@ jobs:
       run: docker build -t ci_cd .
 
     - name: Running Selenium tests
-      run: docker run ci_cd python /app/test_endtoend_app.py
+      run: docker run -p 5000:5000 ci_cd python /app/test_endtoend_app.py
 
     - name: Test with pytest
       run: |
