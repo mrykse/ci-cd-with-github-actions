@@ -6,14 +6,10 @@ ADD . /app
 WORKDIR /app
 # Install dependencies
 
-# Download and install Chromedriver
-RUN curl -O https://chromedriver.storage.googleapis.com/120.0.6099.109/chromedriver_linux64.zip \
-    && unzip chromedriver_linux64.zip \
-    && mv chromedriver /usr/local/bin/ \
-    && chmod +x /usr/local/bin/chromedriver
-
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+RUN pip install webdriver_manager
+RUN python -c "from webdriver_manager.chrome import ChromeDriverManager; ChromeDriverManager().install()"
 
 # Expose port 5000
 EXPOSE 5000
