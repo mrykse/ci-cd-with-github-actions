@@ -16,7 +16,7 @@ class TestAppE2E(unittest.TestCase):
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument('--remote-debugging-address=0.0.0.0')
 
-        host_ip = "172.17.0.1"  # Replace with the actual IP for your setup
+        host_ip = "host.docker.internal"
         self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.get(f'http://{host_ip}:5000')
 
