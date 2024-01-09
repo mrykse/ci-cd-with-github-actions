@@ -34,10 +34,10 @@ jobs:
       run: docker build -t ci_cd .
 
     - name: Run unit tests
-      run: docker run ci_cd pytest test-app
+      run: docker run ci_cd pytest test-app.py
 
     - name: Run integration tests
-      run: docker run ci_cd pytest test-endtoend-app
+      run: docker run ci_cd pytest test-endtoend-app.py
 
     - name: Test with pytest
       run: |
