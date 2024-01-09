@@ -6,10 +6,11 @@ WORKDIR /app
 
 # Install dependencies
 RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install selenium
 RUN pip install selenium webdriver_manager
-RUN pip install -r requirements.txt
+
 # Install required dependencies for Google Chrome
-RUN apt-get update
 RUN apt-get install -y wget gnupg
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
