@@ -1,15 +1,16 @@
-# Base image
-FROM python:3.10
-# Copy the application folder inside the container
-ADD . /app
-# Set the working directory
-WORKDIR /app
-# Install dependencies
+# Use a base image with Python and Chrome dependencies
+FROM python:3.10-slim
 
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the application code to the container
+COPY . /app
+
+# Install dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-RUN pip install webdriver_manager
-RUN python -c "from webdriver_manager.chrome import ChromeDriverManager; ChromeDriverManager().install()"
+RUN pip install selenium webdriver_manager
 
 # Expose port 5000
 EXPOSE 5000
