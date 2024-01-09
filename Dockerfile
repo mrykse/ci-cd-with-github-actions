@@ -7,7 +7,7 @@ WORKDIR /app
 # Install dependencies
 RUN pip install --upgrade pip
 RUN pip install selenium webdriver_manager
-
+RUN pip install -r requirements.txt
 # Install required dependencies for Google Chrome
 RUN apt-get update
 RUN apt-get install -y wget gnupg
@@ -23,5 +23,6 @@ COPY test_endtoend_app.py .
 COPY test_app.py .
 
 EXPOSE 5000
+
 # Run the test script
 CMD ["python", "app.py"]
