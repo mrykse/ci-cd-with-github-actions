@@ -30,9 +30,18 @@ jobs:
     - name: Build Docker image
       run: docker build -t ci_cd .
 
-    - name: Running Selenium tests
-      run: docker run --network host -p 5000:5000 ci_cd python /app/test_endtoend_app.py
-
+    - name: Installed package list
+      run: apt list --installed
+    - name: Remove Chrome
+      run: sudo apt purge google-chrome-stable
+    - name: Remove default Chromium
+      run: sudo apt purge chromium-browser
+    - name: Install a new Chromium
+      run: sudo apt install -y chromium-browser
+    - name: Install all necessary packages
+      run: pip install requests beautifulsoup4 pandas webdriver-manager selenium
+    - name: Run the scraping script
+      run: python test_endtoend_app.py
 
     - name: Test with pytest
       run: |
