@@ -5,6 +5,42 @@ ADD . /app
 # Set the working directory
 WORKDIR /app
 # Install dependencies
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    wget \
+    unzip \
+    libglib2.0-0 \
+    libnss3 \
+    libgconf-2-4 \
+    libfontconfig1 \
+    libxrender1 \
+    libxslt1.1 \
+    libotf0 \
+    libxrandr2 \
+    libasound2 \
+    libpango1.0-0 \
+    libgtk-3-0 \
+    libatk1.0-0 \
+    libgtk-3-0 \
+    libxtst6 \
+    libxss1 \
+    libnss3-dev \
+    libxi6 \
+    libxcomposite1 \
+    libasound2
+
+# Download and install Chrome
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google.list
+RUN apt-get update && apt-get install -y google-chrome-stable
+
+# Download and install Chromedriver
+RUN wget https://chromedriver.storage.googleapis.com/120.0.6099.109/chromedriver_linux64.zip \
+    && unzip chromedriver_linux64.zip \
+    && mv chromedriver /usr/local/bin/ \
+    && chmod +x /usr/local/bin/chromedriver
+
+
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
