@@ -13,7 +13,7 @@ class TestAppE2E(unittest.TestCase):
         # Start virtual display
         cls.display = Display(visible=0, size=(800, 800))
         cls.display.start()
-
+        chrome_version = "120.0.6099.109"
         # Configure Chrome options
         chrome_options = Options()
         chrome_options.add_argument('--headless')
@@ -21,7 +21,7 @@ class TestAppE2E(unittest.TestCase):
         chrome_options.add_argument('--ignore-certificate-errors')
 
         # Initialize WebDriver
-        cls.driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+        cls.driver = webdriver.Chrome(ChromeDriverManager(version=chrome_version).install(), options=chrome_options)
 
     def test_add_and_delete_and_update_item(self):
         self.driver.find_element(By.NAME, "item").click()
