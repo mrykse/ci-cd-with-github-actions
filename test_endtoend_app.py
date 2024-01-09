@@ -9,7 +9,9 @@ class TestAppE2E(unittest.TestCase):
     # The setUp is a little different for me, since the command indicated in the subject didn't work for me
     # But we this setUp it works perfectly
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument('--headless')
+        self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.get('http://localhost:5000')
 
     # I've also make the update_item test case on it, so I renamed the test case
