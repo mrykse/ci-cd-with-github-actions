@@ -14,7 +14,8 @@ class TestAppE2E(unittest.TestCase):
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--no-sandbox')
-        host_ip = "127.0.0.1"
+        host_ip = "172.17.0.1"
+        chrome_options.add_argument(f'--remote-debugging-address={host_ip}')
         self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.get(f'http://{host_ip}:5000')
 
