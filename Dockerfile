@@ -8,20 +8,17 @@ WORKDIR /app
 RUN pip install --upgrade pip
 RUN pip install selenium webdriver_manager
 
-# Install Google Chrome
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-RUN dpkg -i google-chrome-stable_current_amd64.deb
-RUN apt-get install -f
+# Install required dependencies for Google Chrome
+RUN apt-get update
+RUN apt-get install -y wget gnupg
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+RUN apt-get update
+RUN apt-get install -y google-chrome-stable
 
 # Install ChromeDriver using webdriver_manager
 RUN python -c "from webdriver_manager.chrome import ChromeDriverManager; ChromeDriverManager().install()"
 
-# Install dependencies
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
-RUN pip install selenium webdriver_manager
 
-# Expose port 5000
-EXPOSE 5000
-# Run the application
+# Run the test script
 CMD ["python", "app.py"]
