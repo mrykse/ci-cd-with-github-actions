@@ -22,5 +22,6 @@ RUN python -c "from webdriver_manager.chrome import ChromeDriverManager; ChromeD
 COPY test_endtoend_app.py .
 COPY test_app.py .
 
+EXPOSE 5000
 # Run the test script
 CMD ["python", "app.py"]
