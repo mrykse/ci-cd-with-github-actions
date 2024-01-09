@@ -1,6 +1,4 @@
 Flask
 pandas
-pytest==7.4.2
-selenium==4.13.0
-chromium
-chromium-driver
+pytest
+selenium
