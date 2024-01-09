@@ -2,3 +2,4 @@ Flask
 pandas
 pytest
 selenium
+webdriver-manager
