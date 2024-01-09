@@ -31,7 +31,7 @@ jobs:
       run: docker build -t ci_cd .
 
     - name: Running the Python script
-      run: docker run ci_cd python test_endtoend_app.py
+      run: xvfb-run docker run ci_cd python test_endtoend_app.py
 
     - name: Test with pytest
       run: |
