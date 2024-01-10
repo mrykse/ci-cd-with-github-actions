@@ -31,7 +31,7 @@ jobs:
         run: docker run -d -p 5000:5000 mrykse/ci_cd
 
       - name: Running unit tests
-        run: python -m unittest discover unit_test
+        run: python -m unittest discover unit_tests
 
       - name: Running integration tests
         run: python -m unittest discover integration_test
