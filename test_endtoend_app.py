@@ -3,26 +3,28 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.chrome import ChromeType
 
 
 class TestAppE2E(unittest.TestCase):
-    # The setUp is a little different for me, since the command indicated in the subject didn't work for me
-    # But we this setUp it works perfectly
     def setUp(self):
-        chrome_options = webdriver.ChromeOptions()
+        chrome_options = Options()
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument('--window-size=1920,1200')
+        chrome_options.add_argument('--ignore-certificate-errors')
+        chrome_options.add_argument('--disable-extensions')
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
-        chrome_options.add_argument('--remote-debugging-address=0.0.0.0')
 
-        host_ip = "127.0.0.1"
-        self.driver = webdriver.Chrome(options=chrome_options)
-        self.driver.get(f'http://{host_ip}:5000')
+        self.driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install(),
+                                       options=chrome_options)
 
-    # I've also make the update_item test case on it, so I renamed the test case
     def test_add_and_delete_and_update_item(self):
         self.driver.set_window_size(1406, 860)
+        self.driver.get("http://localhost:5000")  # Replace with the correct URL
+
         self.driver.find_element(By.NAME, "item").click()
         self.driver.find_element(By.NAME, "item").send_keys("12")
         self.driver.find_element(By.CSS_SELECTOR, "button").click()
@@ -43,7 +45,7 @@ class TestAppE2E(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, "Delete").click()
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
 
 if __name__ == "__main__":
