@@ -23,8 +23,6 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Build Docker image
-        run: docker build -t ci_cd .
 
       - name: Build Docker image
         run: docker build -t mrykse/ci_cd .
@@ -36,7 +34,7 @@ jobs:
         run: docker run ci_cd python /app/test_app.py
 
       - name: Running integration tests
-        run: docker run ci_cd python /app/test_endtoend_app.py
+        run: python -m unittest discover integration_tests
 
       - name: Stop docker
         run: docker stop $(docker ps -q --filter ancestor=mrykse/ci_cd )
