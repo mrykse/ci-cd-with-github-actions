@@ -17,8 +17,7 @@ class TestAppE2E(unittest.TestCase):
 
     def test_add_and_delete_and_update_item(self):
         self.driver.set_window_size(1406, 860)
-        self.driver.get("http://localhost:5000")  # Replace with the correct URL
-
+        self.driver.get("http://localhost:5000/")
         self.driver.find_element(By.NAME, "item").click()
         self.driver.find_element(By.NAME, "item").send_keys("12")
         self.driver.find_element(By.CSS_SELECTOR, "button").click()
