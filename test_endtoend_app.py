@@ -9,17 +9,15 @@ from webdriver_manager.chrome import ChromeType
 
 class TestAppE2E(unittest.TestCase):
     def setUp(self):
-        chrome_options = Options()
-        chrome_options.add_argument('--headless')
-        chrome_options.add_argument('--disable-gpu')
-        chrome_options.add_argument('--window-size=1920,1200')
-        chrome_options.add_argument('--ignore-certificate-errors')
-        chrome_options.add_argument('--disable-extensions')
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--disable-dev-shm-usage')
+        options = webdriver.ChromeOptions()
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--headless")
+        self.driver = webdriver.Chrome(options)
+        self.driver.get('http://localhost:5000')
 
-        self.driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install(),
-                                       options=chrome_options)
+    def tearDown(self):
+        self.driver.quit()
 
     def test_add_and_delete_and_update_item(self):
         self.driver.set_window_size(1406, 860)
@@ -43,9 +41,6 @@ class TestAppE2E(unittest.TestCase):
         self.driver.find_element(By.CSS_SELECTOR, "li:nth-child(3) > a").click()
         self.driver.find_element(By.LINK_TEXT, "Delete").click()
         self.driver.find_element(By.LINK_TEXT, "Delete").click()
-
-    def tearDown(self):
-        self.driver.quit()
 
 
 if __name__ == "__main__":
