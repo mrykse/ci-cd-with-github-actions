@@ -31,10 +31,10 @@ jobs:
         run: docker run -d -p 5000:5000 mrykse/ci_cd
 
       - name: Running unit tests
-        run: docker run ci_cd python /app/test_app.py
+        run: python -m unittest /app/test_app.py
 
       - name: Running integration tests
-        run: python -m unittest discover integration_tests
+        run: python -m unittest /app/test_endtoend_app.py
 
       - name: Stop docker
         run: docker stop $(docker ps -q --filter ancestor=mrykse/ci_cd )
